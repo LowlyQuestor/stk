@@ -16,4 +16,6 @@ It then knows to pop out the next two elements from CSTK and push the addition o
 - CSTK {1 2}
 - CSTK {3}
 
-Through more complex instructions, a fully turing complete system can be created.
+RSTK simply saves results and addresses that could be needed for later.
+
+Memory contains all the instructions of the program, a program counter goes through memory and pushs the pointed to instruction into CSTK.
