@@ -61,7 +61,7 @@ class stackMachine:
         self.cstk = stack()
         self.rstk = stack()
         self.mem = []
-        self.addr = 0 # now the memory address register
+        self.addr = 0 # the memory address register
         self.pc = 0 # program counter
 
     # Stack Operations
