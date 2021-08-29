@@ -1,0 +1,9 @@
+1 100 sub
+rpush
+0 fetch
+rpop
+sub
+dup
+rpush
+4 swap
+0 bne
