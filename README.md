@@ -12,8 +12,8 @@ Take a simple example:
 Here, inside CSTK is the instruction ADD and the operands 1 and 2. CSTK first pops the ADD inst first (as it is in the top of the stack).
 It then knows to pop out the next two elements from CSTK and push the addition of the two.
 
-CSTK {1 2 ADD}
-CSTK {1 2}
-CSTK {3}
+ - CSTK {1 2 ADD}
+- CSTK {1 2}
+- CSTK {3}
 
 Through more complex instructions, a fully turing complete system can be created.
