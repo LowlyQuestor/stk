@@ -1,0 +1,14 @@
+#include<stack>
+class StackMachine {
+private:
+  std::stack<uint16_t> cstk; // Call stack
+  std::stack<uint16_t> rstk; // Return stack
+
+  uint16_t mem[131072]; // 128K RAM
+
+  uint16_t pc; // Program counter
+  uint16_t opcode; // Current opcode
+  uint16_t mar; // Memory Address Register
+
+  
+  
