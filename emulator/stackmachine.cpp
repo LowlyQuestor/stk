@@ -16,12 +16,12 @@ mar        = 0;
 
 
 // Clear CSTK
-for (auto it = cstk.begin(); it != cstk.end() ++it) {
+for (auto it = cstk.begin(); it != cstk.end(); ++it) {
         *it = 0;
 }
 
 // Clear RSTK
-for (auto it = rstk.begin(); it != rstk.end() ++it) {
+for (auto it = rstk.begin(); it != rstk.end(); ++it) {
         *it = 0;
 }
 
@@ -40,7 +40,7 @@ void StackMachine::cpop() { // Pop first element from CSTK
         cstk.pop_back();
 }
 
-void StackMachine::cpeek() { // Look at top element from CSTK
+uint16_t StackMachine::cpeek() { // Look at top element from CSTK
         return *cstk.end();
 }
 
@@ -70,28 +70,28 @@ rstk.pop_back();
 }
 
 // Arithmetic
-void add() {
+void StackMachine::add() {
   auto temp = *(sp) + *(sp2); // store the addition in a temp var
   cpop(); // pop out the two elements
   cpop();
   cpush(temp);
 }
 
-void sub() {
+void StackMachine::sub() {
   auto temp = *(sp) - *(sp2);
   cpop();
   cpop();
   cpush(temp);
 }
 
-void mul() {
+void StackMachine::mul() {
   auto temp = *(sp) * *(sp2); // store multiplication in a temp var
   cpop();
   cpop();
   cpush(temp);
 }
 
-void div() {
+void StackMachine::div() {
   auto temp = *(sp) / *(sp2);
   cpop();
   cpop();
@@ -99,21 +99,21 @@ void div() {
 }
 
 // Bitwise Logical Operations
-void ori() {
+void StackMachine::ori() {
   auto temp = *(sp) | *(sp2);
   cpop();
   cpop();
   cpush(temp);
 }
 
-void xori() {
+void StackMachine::xori() {
   auto temp = *(sp) ^ *(sp2);
   cpop();
   cpop();
   cpush(temp);
 }
 
-void andi() {
+void StackMachine::andi() {
   auto temp = *(sp) & *(sp2);
   cpop();
   cpop();
@@ -121,18 +121,18 @@ void andi() {
 }
 
 // Movement Operations
-void jmp() {
+void StackMachine::jmp() {
   pc = *(sp); // set the program counter to the value at the top of stack
   cpop();
 }
 
-void fetch() {
+void StackMachine::fetch() {
   mar = *(sp); // set the MAR to the value at the top of the stack
   cpop();
   cpush(mem[mar]); // push the contents of memory at MAR
 }
 
-void mov() { // First arg is address second is data
+void StackMachine::mov() { // First arg is address second is data
   mar = *(sp);
   cpop();
   mem[mar] = *(sp2);
@@ -140,4 +140,46 @@ void mov() { // First arg is address second is data
 }
 
 // Conditional Branches
+void StackMachine::beq() { // Branch if equal to
+  if ( *(sp) == *(sp2) ) {
+    cpop();
+    cpop();
+    jmp();
+  } else {} // do nothing
+}
+
+void StackMachine::bne() { // Branch if not equal to
+  if ( *(sp) != *(sp2) ) {
+    cpop();
+    cpop();
+    jmp();
+  } else {}
+}
+
+void StackMachine::ble() { // Branch if less than
+  if ( *(sp) < *(sp2) ) {
+    cpop();
+    cpop();
+    jmp();
+  } else {}
+}
+
+void StackMachine::bge() { // Branch if greater than
+  if ( *(sp) > *(sp2) ) {
+    cpop();
+    cpop();
+    jmp();
+  } else {}
+}
+
+// Subroutine Calls
+void StackMachine::call() {
+  rpush(pc); // save the current address to RSTK
+  jmp(); // jump to new address
+}
+
+void StackMachine::exit() {
+  pc = *(rstk.end()); // set the program counter back
+  rpop(); // take out that value
+}
 

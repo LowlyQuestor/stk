@@ -1,11 +1,12 @@
 #include<vector>
+#include<cstdint>
 class StackMachine {
 private:
   std::vector<uint16_t> cstk; // Call stack
   std::vector<uint16_t> rstk; // Return stack
 
-  auto* sp = cstk.end(); // first stack pointer (top of stack)
-  auto* sp2 = cstk.end() - 1; // second stack pointer (second element)
+  std::vector<uint16_t>::iterator sp = cstk.end(); // first stack pointer (top of stack)
+  std::vector<uint16_t>::iterator sp2 = cstk.end() - 1; // second stack pointer (second element)
 
   uint16_t mem[131072]; // 128K RAM
 
